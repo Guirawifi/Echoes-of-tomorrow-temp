@@ -8,7 +8,8 @@ const JUMP_VELOCITY = -500.0
 var gravity = 980
 @onready var sprite_2d = $Sprite2D
 var was_on_floor = false
-var coyote_time = 9999999999.99
+var coyote_time = 0.0
+var jump_buffering = 0.0
 
 func _ready():
 	DiscordRPC.details = "In the game"
@@ -40,8 +41,12 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	elif Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_time:
+	elif (Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_time) or (Time.get_unix_time_from_system() <= jump_buffering and is_on_floor()):
 		velocity.y = JUMP_VELOCITY
+		coyote_time = 0
+		jump_buffering = 0
+	if Input.is_action_just_pressed("jump") and not is_on_floor():
+		jump_buffering = Time.get_unix_time_from_system() + 0.1
 	if (Input.is_action_just_released("jump") and velocity.y < 0):
 		velocity.y = 0
 	

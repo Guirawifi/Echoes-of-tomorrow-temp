@@ -13,7 +13,6 @@ func _ready():
 	DiscordRPC.small_image = "dinssons"
 	DiscordRPC.large_image_text = "I know it look nice"
 	DiscordRPC.small_image_text = "He's better than you"
-	#DiscordRPC.current_party_size = 1
 	DiscordRPC.start_timestamp = int(Time.get_unix_time_from_system())
 	
 	DiscordRPC.refresh()

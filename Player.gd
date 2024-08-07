@@ -2,74 +2,80 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
+const DASH_POWER = 800.0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 980
+
 @onready var sprite_2d = $Sprite2D
+@onready var label = $"../Label"
+
 var was_on_floor = false
-var coyote_time = 0.0
-var jump_buffering = 0.0
-var dashing = 0
-var dash_power = 800.0
-var dash_timer = 0
 var can_dash = false
+var dashing = false
+
+var sprite_direction = 0
+var direction = 0
+
+var coyote_timer = 0
+var jump_buffering_timer = 0
+var dash_timer = 0
+
+var time_to_wait = Time.get_unix_time_from_system() + 1
+var frame_count = 0
 
 func _ready():
+	#--------------------------------------------------------------------------------------- DISCORD RICH PRESENCE
 	DiscordRPC.details = "In the game"
 	DiscordRPC.state = "So many bugs ;-;"
-	
 	DiscordRPC.refresh()
 
 func _physics_process(delta):
+	#--------------------------------------------------------------------------------------- ANIMATIONS AND SPRITE
 	if (velocity.x > 1 || velocity.x < -1):
 		sprite_2d.animation = "Running"
 	else:
 		sprite_2d.animation = "Idle"
 		
-	# Add the gravity.
-	if not is_on_floor() and not dashing:
+	direction = Input.get_axis("left", "right")
+	sprite_direction = 0
+	if velocity.x < 0: sprite_direction = 1
+	elif velocity.x > 0: sprite_direction = -1
+	
+	if sprite_direction == 1:
+		sprite_2d.flip_h = true  
+	elif sprite_direction == -1:
+		sprite_2d.flip_h = false
+		
+	#--------------------------------------------------------------------------------------- GRAVITY + COYOTE TIMER
+	if not is_on_floor() and not dashing: #BUG
 		if was_on_floor:
 			was_on_floor = false
-			coyote_time = Time.get_unix_time_from_system() + 0.1
+			coyote_timer = Time.get_unix_time_from_system() + 0.1
 			
 		if velocity.y < 0:
 			gravity = 980
 		else:
 			gravity = 1470
+			
 		velocity.y += gravity * delta
 		sprite_2d.animation = "Jumping"
-	else:
+		
+	else: #--------------------------------------------------------------- BUG as dashing set was_on_floor to true and you can jump after a dash
 		was_on_floor = true
 
-	# Handle jump.
+	#--------------------------------------------------------------------------------------- JUMP + COYOTE JUMP + JUMP BUFFERING
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	elif (Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_time) or (Time.get_unix_time_from_system() <= jump_buffering and is_on_floor()):
+	elif (Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_timer) or (Time.get_unix_time_from_system() <= jump_buffering_timer and is_on_floor()):
 		velocity.y = JUMP_VELOCITY
-		coyote_time = 0
-		jump_buffering = 0
+		coyote_timer = 0
+		jump_buffering_timer = 0
 	if (Input.is_action_just_pressed("jump") and not is_on_floor()) or (Input.is_action_just_pressed("jump") and dashing):
-		jump_buffering = Time.get_unix_time_from_system() + 0.1
+		jump_buffering_timer = Time.get_unix_time_from_system() + 0.1
 	if (Input.is_action_just_released("jump") and velocity.y < 0 and not dashing):
 		velocity.y = 0
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
-	var isLeft = velocity.x < 0
-	var isRight = velocity.x > 0
-	var sprite_direction = 0
-	
-	if isLeft:
-		sprite_direction = 1
-	elif isRight:
-		sprite_direction = -1
 		
-	if sprite_direction == 1:
-		sprite_2d.flip_h = true  
-	elif sprite_direction == -1:
-		sprite_2d.flip_h = false
-	
+	#--------------------------------------------------------------------------------------- DASH
 	if is_on_floor() and not dashing:
 		can_dash = true
 	
@@ -77,40 +83,49 @@ func _physics_process(delta):
 		dashing = true
 		can_dash = false
 		if Input.is_action_pressed("left"):
-			velocity.x = -dash_power
+			velocity.x = -DASH_POWER
 			velocity.y = 0
 		if Input.is_action_pressed("right"):
-			velocity.x = dash_power
+			velocity.x = DASH_POWER
 			velocity.y = 0
 		if Input.is_action_pressed("up"):
-			if abs(velocity.x) < dash_power: velocity.x = 0
-			velocity.y = -dash_power
+			if abs(velocity.x) < DASH_POWER: velocity.x = 0
+			velocity.y = -DASH_POWER
 		if Input.is_action_pressed("down"):
-			if abs(velocity.x) < dash_power: velocity.x = 0
-			velocity.y = dash_power
+			if abs(velocity.x) < DASH_POWER: velocity.x = 0
+			velocity.y = DASH_POWER
 		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right") and not Input.is_action_pressed("up") and not Input.is_action_pressed("down"):
 			if sprite_2d.flip_h:
-				velocity.x = -dash_power
+				velocity.x = -DASH_POWER
 				velocity.y = 0
 			else:
-				velocity.x = dash_power
+				velocity.x = DASH_POWER
 				velocity.y = 0
 				
 		dash_timer = Time.get_unix_time_from_system() + 0.2
 	
 	if dashing and Time.get_unix_time_from_system() > dash_timer:
 		dashing = false
-		if abs(velocity.y) > abs(JUMP_VELOCITY):
-			velocity.y = 50
-	
+		if -velocity.y > abs(JUMP_VELOCITY):
+			velocity.y = JUMP_VELOCITY-1
+			
+	#--------------------------------------------------------------------------------------- WALKING + SLOWING DOWN
 	if direction and not dashing:
 		if (abs(velocity.x) <= SPEED):
-			velocity.x = direction * SPEED
+			velocity.x = direction/abs(direction) * SPEED
 		if (velocity.x/abs(velocity.x) != direction/abs(direction)):
-			velocity.x += (direction * SPEED) - abs(velocity.x)/10
+			velocity.x += (direction/abs(direction) * SPEED) - abs(velocity.x)/10
 	elif not direction and is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, 30)
 	elif not dashing:
 		velocity.x = move_toward(velocity.x, 0, 20)
 
 	move_and_slide()
+	
+	#--------------------------------------------------------------------------------------- FPS COUNTER
+	frame_count += 1
+	
+	if Time.get_unix_time_from_system() >= time_to_wait:
+		time_to_wait = Time.get_unix_time_from_system() + 1
+		label.text = "FPS: " + str(int(frame_count))
+		frame_count = 0

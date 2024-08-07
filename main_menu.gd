@@ -1,10 +1,5 @@
 extends Control
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _ready():
 	DiscordRPC.app_id = 1270324608859635824
 	DiscordRPC.details = "In the menu"

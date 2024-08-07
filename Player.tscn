@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://yad74fv08w34"]
+[gd_scene load_steps=32 format=3 uid="uid://yad74fv08w34"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_egpeg"]
 [ext_resource type="Texture2D" uid="uid://rqwmus4xydbc" path="res://Main Characters/Virtual Guy/Idle (32x32).png" id="2_ndi7w"]
@@ -192,8 +192,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sp10s"]
-radius = 32.5
-height = 75.0
+radius = 35.0
+height = 72.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wio17"]
+size = Vector2(56, 65)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_egpeg")
@@ -207,5 +210,9 @@ autoplay = "Idle"
 frame_progress = 0.179072
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 6)
+position = Vector2(0, 12)
 shape = SubResource("CapsuleShape2D_sp10s")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_wio17")

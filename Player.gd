@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 
@@ -67,9 +66,9 @@ func _physics_process(delta):
 		sprite_direction = -1
 		
 	if sprite_direction == 1:
-		sprite_2d.flip_h = isLeft  
+		sprite_2d.flip_h = true  
 	elif sprite_direction == -1:
-		sprite_2d.flip_h = not isRight
+		sprite_2d.flip_h = false
 	
 	if is_on_floor() and not dashing:
 		can_dash = true
@@ -89,17 +88,28 @@ func _physics_process(delta):
 		if Input.is_action_pressed("down"):
 			if abs(velocity.x) < dash_power: velocity.x = 0
 			velocity.y = dash_power
+		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right") and not Input.is_action_pressed("up") and not Input.is_action_pressed("down"):
+			if sprite_2d.flip_h:
+				velocity.x = -dash_power
+				velocity.y = 0
+			else:
+				velocity.x = dash_power
+				velocity.y = 0
+				
 		dash_timer = Time.get_unix_time_from_system() + 0.2
 	
 	if dashing and Time.get_unix_time_from_system() > dash_timer:
 		dashing = false
-		velocity.y = 0
+		if abs(velocity.y) > abs(JUMP_VELOCITY):
+			velocity.y = 50
 	
 	if direction and not dashing:
 		if (abs(velocity.x) <= SPEED):
 			velocity.x = direction * SPEED
 		if (velocity.x/abs(velocity.x) != direction/abs(direction)):
 			velocity.x += (direction * SPEED) - abs(velocity.x)/10
+	elif not direction and is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, 30)
 	elif not dashing:
 		velocity.x = move_toward(velocity.x, 0, 20)
 

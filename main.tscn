@@ -618,19 +618,19 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "FPS:"
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Blocks" type="Node2D" parent="."]
 
-[node name="AnimatableBody2D" parent="Node2D" instance=ExtResource("4_8bmeg")]
+[node name="AnimatableBody2D" parent="Blocks" instance=ExtResource("4_8bmeg")]
 position = Vector2(742, 263)
 
-[node name="AnimatableBody2D2" parent="Node2D" instance=ExtResource("4_8bmeg")]
+[node name="AnimatableBody2D2" parent="Blocks" instance=ExtResource("4_8bmeg")]
 position = Vector2(785, 263)
 
-[node name="AnimatableBody2D3" parent="Node2D" instance=ExtResource("4_8bmeg")]
+[node name="AnimatableBody2D3" parent="Blocks" instance=ExtResource("4_8bmeg")]
 position = Vector2(828, 263)
 
-[node name="AnimatableBody2D4" parent="Node2D" instance=ExtResource("4_8bmeg")]
+[node name="AnimatableBody2D4" parent="Blocks" instance=ExtResource("4_8bmeg")]
 position = Vector2(871, 263)
 
-[node name="AnimatableBody2D5" parent="Node2D" instance=ExtResource("4_8bmeg")]
+[node name="AnimatableBody2D5" parent="Blocks" instance=ExtResource("4_8bmeg")]
 position = Vector2(914, 263)

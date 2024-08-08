@@ -47,7 +47,7 @@ func _physics_process(delta):
 		sprite_2d.flip_h = false
 		
 	#--------------------------------------------------------------------------------------- GRAVITY + COYOTE TIMER
-	if not is_on_floor() and not dashing: #BUG
+	if not is_on_floor() and not dashing:
 		if was_on_floor:
 			was_on_floor = false
 			coyote_timer = Time.get_unix_time_from_system() + 0.1
@@ -60,12 +60,14 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 		sprite_2d.animation = "Jumping"
 		
-	else: #--------------------------------------------------------------- BUG as dashing set was_on_floor to true and you can jump after a dash
+	elif is_on_floor(): #-old BUG as dashing set was_on_floor to true and you can jump after a dash
 		was_on_floor = true
 
 	#--------------------------------------------------------------------------------------- JUMP + COYOTE JUMP + JUMP BUFFERING
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
 		velocity.y = JUMP_VELOCITY
+		if is_on_wall() and not is_on_floor():
+			velocity.x = get_wall_normal()[0]*-JUMP_VELOCITY
 	elif (Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_timer) or (Time.get_unix_time_from_system() <= jump_buffering_timer and is_on_floor()):
 		velocity.y = JUMP_VELOCITY
 		coyote_timer = 0
@@ -111,10 +113,13 @@ func _physics_process(delta):
 			
 	#--------------------------------------------------------------------------------------- WALKING + SLOWING DOWN
 	if direction and not dashing:
-		if (abs(velocity.x) <= SPEED):
-			velocity.x = direction/abs(direction) * SPEED
-		if (velocity.x/abs(velocity.x) != direction/abs(direction)):
-			velocity.x += (direction/abs(direction) * SPEED) - abs(velocity.x)/10
+		if is_on_floor():
+			if (abs(velocity.x) <= SPEED):
+				velocity.x = direction/abs(direction) * SPEED
+			if (velocity.x/abs(velocity.x) != direction/abs(direction)):
+				velocity.x += ((direction/abs(direction) * SPEED) - velocity.x)/10
+		else:
+			velocity.x += (direction/abs(direction) * SPEED - velocity.x)/20
 	elif not direction and is_on_floor():
 		velocity.x = move_toward(velocity.x, 0, 30)
 	elif not dashing:

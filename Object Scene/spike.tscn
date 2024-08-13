@@ -19,6 +19,9 @@ func _process(delta):
 [node name="StaticBody2D" type="StaticBody2D"]
 script = SubResource("GDScript_qqnkd")
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-35, 0, 30, 0, 15, -28, 0, -1, -4, -1, -20, -28)
+
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_filter = 1
 anchors_preset = 7
@@ -32,6 +35,3 @@ offset_right = 35.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_g3wcb")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-35, 0, 30, 0, 15, -28, 0, -1, -4, -1, -20, -28)

@@ -45,7 +45,3 @@ target_position = Vector2(40, -3)
 [node name="PlayerDetection2" type="RayCast2D" parent="."]
 position = Vector2(20, -24)
 target_position = Vector2(-40, -3)
-
-[node name="FallDetection" type="RayCast2D" parent="."]
-position = Vector2(-20, 24)
-target_position = Vector2(40, 3)

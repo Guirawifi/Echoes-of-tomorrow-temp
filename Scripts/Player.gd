@@ -3,6 +3,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 const DASH_POWER = 800.0
+const APPEARING_TIME = 15
 
 var gravity = 980
 
@@ -19,6 +20,7 @@ var direction = 0
 var coyote_timer = 0
 var jump_buffering_timer = 0
 var dash_timer = 0
+var appearing_timer = 0
 
 var time_to_wait = Time.get_unix_time_from_system() + 1
 var frame_count = 0
@@ -31,20 +33,23 @@ func _ready():
 
 func _physics_process(delta):
 	#--------------------------------------------------------------------------------------- ANIMATIONS AND SPRITE
-	if (velocity.x > 1 || velocity.x < -1):
-		sprite_2d.animation = "Running"
-	else:
-		sprite_2d.animation = "Idle"
+	if appearing_timer > APPEARING_TIME:
+		if (velocity.x > 1 || velocity.x < -1):
+			sprite_2d.animation = "Running"
+		else:
+			sprite_2d.animation = "Idle"
+			
+		direction = Input.get_axis("left", "right")
+		sprite_direction = 0
+		if velocity.x < 0: sprite_direction = 1
+		elif velocity.x > 0: sprite_direction = -1
 		
-	direction = Input.get_axis("left", "right")
-	sprite_direction = 0
-	if velocity.x < 0: sprite_direction = 1
-	elif velocity.x > 0: sprite_direction = -1
-	
-	if sprite_direction == 1:
-		sprite_2d.flip_h = true  
-	elif sprite_direction == -1:
-		sprite_2d.flip_h = false
+		if sprite_direction == 1:
+			sprite_2d.flip_h = true  
+		elif sprite_direction == -1:
+			sprite_2d.flip_h = false
+	else:
+		appearing_timer += 1
 		
 	#--------------------------------------------------------------------------------------- GRAVITY + COYOTE TIMER
 	if not is_on_floor() and not dashing:
@@ -58,18 +63,18 @@ func _physics_process(delta):
 			gravity = 1470
 			
 		velocity.y += gravity * delta
-		sprite_2d.animation = "Jumping"
+		if appearing_timer > APPEARING_TIME: sprite_2d.animation = "Jumping"
 		
 	elif is_on_floor(): #-old BUG as dashing set was_on_floor to true and you can jump after a dash
 		was_on_floor = true
 
 	#--------------------------------------------------------------------------------------- JUMP + COYOTE JUMP + JUMP BUFFERING
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or is_on_wall()):
-		velocity.y = JUMP_VELOCITY
+		velocity.y += JUMP_VELOCITY
 		if is_on_wall() and not is_on_floor():
 			velocity.x = get_wall_normal()[0]*-JUMP_VELOCITY
 	elif (Input.is_action_just_pressed("jump") and Time.get_unix_time_from_system() <= coyote_timer) or (Time.get_unix_time_from_system() <= jump_buffering_timer and is_on_floor()):
-		velocity.y = JUMP_VELOCITY
+		velocity.y += JUMP_VELOCITY
 		coyote_timer = 0
 		jump_buffering_timer = 0
 	if (Input.is_action_just_pressed("jump") and not is_on_floor()) or (Input.is_action_just_pressed("jump") and dashing):
@@ -131,7 +136,10 @@ func _physics_process(delta):
 		var collision := get_slide_collision(index)
 		var body := collision.get_collider()
 		if body.name == "Spike":
-			print("you're dead")
+			appearing_timer = 0
+			sprite_2d.animation = "dying"
+			position.x = 440
+			position.y = 185
 	
 	#--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1

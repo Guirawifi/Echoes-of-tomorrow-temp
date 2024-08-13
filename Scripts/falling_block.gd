@@ -1,7 +1,6 @@
 extends AnimatableBody2D
 
 @onready var player_detection = $PlayerDetection
-@onready var fall_detection = $FallDetection
 @onready var player_detection_2 = $PlayerDetection2
 
 var fall = false

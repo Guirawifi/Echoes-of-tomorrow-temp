@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://compmm3kviqqe" path="res://addons/discord-rpc-gd/nodes/assets/Unchecked.svg" id="3_5cyem"]
 [ext_resource type="Texture2D" uid="uid://dtc6ckladq0td" path="res://addons/discord-rpc-gd/nodes/assets/circle.svg" id="3_goflf"]
 
+
 [sub_resource type="GDScript" id="GDScript_ak1tp"]
 resource_name = "Debug"
 script/source = "extends Node

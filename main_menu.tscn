@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dj047sqo612w0"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_mt7au"]
-[ext_resource type="Texture2D" uid="uid://c2tn1hqd63g2v" path="res://Menu/Game Capture.png" id="1_sdprw"]
-[ext_resource type="FontFile" uid="uid://c803mn28sir1s" path="res://Menu/Text/GrapeSoda.ttf" id="2_h7kgg"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_mt7au"]
+[ext_resource type="Texture2D" uid="uid://c2tn1hqd63g2v" path="res://Game Assets/Menu/Game Capture.png" id="1_sdprw"]
+[ext_resource type="FontFile" uid="uid://c803mn28sir1s" path="res://Game Assets/Menu/Text/GrapeSoda.ttf" id="2_h7kgg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n882m"]
 texture = ExtResource("1_sdprw")

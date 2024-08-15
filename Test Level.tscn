@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://655l36eqeqs1"]
+[gd_scene load_steps=7 format=3 uid="uid://655l36eqeqs1"]
 
 [ext_resource type="Texture2D" uid="uid://cfu7okwoumqto" path="res://Game Assets/Background/Green.png" id="1_8kcvr"]
 [ext_resource type="Texture2D" uid="uid://d1mc3gckc2l4p" path="res://Game Assets/Terrain/Terrain (16x16).png" id="2_u7ha7"]
-[ext_resource type="PackedScene" uid="uid://c0sinundqosl5" path="res://Object Scene/Test better script.tscn" id="3_6wwrm"]
 [ext_resource type="PackedScene" uid="uid://6pducreoo5lt" path="res://Object Scene/falling_block.tscn" id="4_hw34b"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="5_7bcdj"]
 
@@ -615,9 +614,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "FPS:"
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_6wwrm")]
-position = Vector2(474, 181)
 
 [node name="Objects" type="Node2D" parent="."]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://l31eew32b738"
-path="res://.godot/imported/Part 1 (22x22).png-4f53359ac8e2a3b783be5142b83e0ff9.ctex"
+path="res://.godot/imported/Part 1 (22x22).png-1431add6fcfe93bd335563a59cdad54d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Traps/Blocks/Part 1 (22x22).png"
-dest_files=["res://.godot/imported/Part 1 (22x22).png-4f53359ac8e2a3b783be5142b83e0ff9.ctex"]
+source_file="res://Temp Game Assets/Traps/Blocks/Part 1 (22x22).png"
+dest_files=["res://.godot/imported/Part 1 (22x22).png-1431add6fcfe93bd335563a59cdad54d.ctex"]
 
 [params]
 

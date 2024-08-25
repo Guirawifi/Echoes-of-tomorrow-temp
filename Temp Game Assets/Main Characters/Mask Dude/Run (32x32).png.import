@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://t7ojk0e4lapc"
-path="res://.godot/imported/Run (32x32).png-aeb211b13a27f97d121b99b8a1578a15.ctex"
+path="res://.godot/imported/Run (32x32).png-fb945be466553a0438ed1798646c0ecb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Main Characters/Mask Dude/Run (32x32).png"
-dest_files=["res://.godot/imported/Run (32x32).png-aeb211b13a27f97d121b99b8a1578a15.ctex"]
+source_file="res://Temp Game Assets/Main Characters/Mask Dude/Run (32x32).png"
+dest_files=["res://.godot/imported/Run (32x32).png-fb945be466553a0438ed1798646c0ecb.ctex"]
 
 [params]
 

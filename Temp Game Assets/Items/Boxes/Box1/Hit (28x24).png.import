@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ex43yepy4p8p"
-path="res://.godot/imported/Hit (28x24).png-890dc67545672bcc7fd2048f9e0f503e.ctex"
+path="res://.godot/imported/Hit (28x24).png-d253f412fada03e787d158fa759e802e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Items/Boxes/Box1/Hit (28x24).png"
-dest_files=["res://.godot/imported/Hit (28x24).png-890dc67545672bcc7fd2048f9e0f503e.ctex"]
+source_file="res://Temp Game Assets/Items/Boxes/Box1/Hit (28x24).png"
+dest_files=["res://.godot/imported/Hit (28x24).png-d253f412fada03e787d158fa759e802e.ctex"]
 
 [params]
 

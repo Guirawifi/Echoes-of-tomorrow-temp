@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1i4mo118ek2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnsiv"]
+size = Vector2(100, 100)
+
+[sub_resource type="QuadMesh" id="QuadMesh_u5n23"]
+size = Vector2(100, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u3hri"]
+seed = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v5p3c"]
+noise = SubResource("FastNoiseLite_u3hri")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_kamxq"]
+diffuse_texture = SubResource("NoiseTexture2D_v5p3c")
+texture_filter = 1
+
+[node name="Area2D" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lnsiv")
+disabled = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+show_behind_parent = true
+texture_filter = 1
+mesh = SubResource("QuadMesh_u5n23")
+texture = SubResource("CanvasTexture_kamxq")

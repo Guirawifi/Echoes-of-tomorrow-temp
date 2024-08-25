@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 const WALL_JUMP_VELOCITY = -700.0
-const GRAVITY = 980
+var GRAVITY = 980
 const APPEARING_TIME = 15
 const DISAPPEARING_TIME = 15
 
@@ -130,7 +130,7 @@ func _physics_process(delta):
 					
 				#--------------------------------------------------------------- APPLY GRAVITY
 				if velocity.y < 0:
-					velocity.y += ((GRAVITY/100) * 150) * delta
+					velocity.y += ((float(GRAVITY)/100) * 150) * delta
 				else:
 					velocity.y += GRAVITY * delta
 					jumping = false
@@ -178,3 +178,13 @@ func _physics_process(delta):
 func _draw():
 	draw_rect(Rect2(collision_1.position[0]-17.5, collision_1.position[1]-36, 35.0, 72.0), Color(255, 0, 0), false, 3)
 	draw_rect(Rect2(collision_2.position[0]-28, collision_2.position[1]-32.5, 56.0, 65.0), Color(0, 0, 255), false, 2)
+
+
+func _on_reverse_gravity_body_entered(_body):
+	GRAVITY -= GRAVITY
+	print("entered")
+
+
+func _on_reverse_gravity_body_exited(_body):
+	GRAVITY -= GRAVITY
+	print('exited')

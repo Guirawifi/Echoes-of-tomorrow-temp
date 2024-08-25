@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cf35voujy0q7i"]
 
-[ext_resource type="Texture2D" uid="uid://ddet8jvcx2xfv" path="res://Game Assets/Traps/Spikes/Idle.png" id="1_g3wcb"]
+[ext_resource type="Texture2D" uid="uid://ddet8jvcx2xfv" path="res://Temp Game Assets/Traps/Spikes/Idle.png" id="1_g3wcb"]
 
 [sub_resource type="GDScript" id="GDScript_qqnkd"]
 script/source = "extends StaticBody2D
@@ -12,7 +12,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass 
 "
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://t5sqlknswf7t"
-path="res://.godot/imported/Appearing (96x96).png-3bb33ad6dabb6d22bb5945b282a415f7.ctex"
+path="res://.godot/imported/Appearing (96x96).png-26751d1c0951c33e74b0facb9353398d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Main Characters/Appearing (96x96).png"
-dest_files=["res://.godot/imported/Appearing (96x96).png-3bb33ad6dabb6d22bb5945b282a415f7.ctex"]
+source_file="res://Temp Game Assets/Main Characters/Appearing (96x96).png"
+dest_files=["res://.godot/imported/Appearing (96x96).png-26751d1c0951c33e74b0facb9353398d.ctex"]
 
 [params]
 

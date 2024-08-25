@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://655l36eqeqs1"]
+[gd_scene load_steps=8 format=3 uid="uid://655l36eqeqs1"]
 
-[ext_resource type="Texture2D" uid="uid://cfu7okwoumqto" path="res://Game Assets/Background/Green.png" id="1_8kcvr"]
-[ext_resource type="Texture2D" uid="uid://d1mc3gckc2l4p" path="res://Game Assets/Terrain/Terrain (16x16).png" id="2_u7ha7"]
+[ext_resource type="Texture2D" uid="uid://cfu7okwoumqto" path="res://Temp Game Assets/Background/Green.png" id="1_8kcvr"]
+[ext_resource type="Texture2D" uid="uid://d1mc3gckc2l4p" path="res://Temp Game Assets/Terrain/Terrain (16x16).png" id="2_u7ha7"]
 [ext_resource type="PackedScene" uid="uid://6pducreoo5lt" path="res://Object Scene/falling_block.tscn" id="4_hw34b"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="5_7bcdj"]
+[ext_resource type="PackedScene" uid="uid://c0sinundqosl5" path="res://Object Scene/Test better script.tscn" id="5_oecok"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sleg"]
 texture = ExtResource("2_u7ha7")
@@ -602,6 +603,7 @@ stretch_mode = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
+position = Vector2(0, 1)
 scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_jo4o8")
 format = 2
@@ -634,3 +636,6 @@ position = Vector2(914, 263)
 
 [node name="Spike" parent="Objects" instance=ExtResource("5_7bcdj")]
 position = Vector2(132, 288)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("5_oecok")]
+position = Vector2(500, 178)

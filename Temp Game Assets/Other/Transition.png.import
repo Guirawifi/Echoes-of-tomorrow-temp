@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://df83ikfypm0gn"
-path="res://.godot/imported/Transition.png-5d882131c6a16355fd223345184274ff.ctex"
+path="res://.godot/imported/Transition.png-7fb6951332594dc04d608c68fc23cb22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Other/Transition.png"
-dest_files=["res://.godot/imported/Transition.png-5d882131c6a16355fd223345184274ff.ctex"]
+source_file="res://Temp Game Assets/Other/Transition.png"
+dest_files=["res://.godot/imported/Transition.png-7fb6951332594dc04d608c68fc23cb22.ctex"]
 
 [params]
 

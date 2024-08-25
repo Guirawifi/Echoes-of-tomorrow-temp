@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b46wnpscjp3oo"
-path="res://.godot/imported/Grey On (32x8).png-0ad16bfcdd0f74fa17bd69737791e8a2.ctex"
+path="res://.godot/imported/Grey On (32x8).png-66b18d4383170d661c065afd0e1ce783.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Traps/Platforms/Grey On (32x8).png"
-dest_files=["res://.godot/imported/Grey On (32x8).png-0ad16bfcdd0f74fa17bd69737791e8a2.ctex"]
+source_file="res://Temp Game Assets/Traps/Platforms/Grey On (32x8).png"
+dest_files=["res://.godot/imported/Grey On (32x8).png-66b18d4383170d661c065afd0e1ce783.ctex"]
 
 [params]
 

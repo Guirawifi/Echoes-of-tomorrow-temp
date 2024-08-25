@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -500.0
 const WALL_JUMP_VELOCITY = -700.0
 const GRAVITY = 980
 const APPEARING_TIME = 15
+const DISAPPEARING_TIME = 15
 
 #------------------------------------------------------------------------------- STATES OF PLAYER
 var appearing = true
@@ -18,6 +19,9 @@ var jumping = false
 #------------------------------------------------------------------------------- OBJECTS IN SCENE
 @onready var sprite_2d = $Sprite2D
 @onready var label = $"../Label"
+@onready var character_body_2d = $"."
+@onready var collision_1 = $CollisionShape2D
+@onready var collision_2 = $CollisionShape2D2
 
 #------------------------------------------------------------------------------- SPRITE DIRECTION
 var sprite_direction = 0
@@ -27,7 +31,7 @@ var direction = 0
 var coyote_timer = 0
 var jump_buffering_timer = 0
 var dash_timer = 0
-var appearing_timer = 0
+var spawning_timer = 0
 
 #------------------------------------------------------------------------------- FPS COUNTER
 var frame_count = 0
@@ -138,24 +142,39 @@ func _physics_process(delta):
 		move_and_slide()
 		
 	elif appearing:
-		appearing_timer += 1
-		if appearing_timer > APPEARING_TIME:
+		spawning_timer += 1
+		if spawning_timer > APPEARING_TIME:
 			appearing = false
-			appearing_timer = 0
+			dying = false
+			spawning_timer = 0
+			sprite_2d.animation = "Jumping"
 	
-	#----------------------------------------------------------------------------------------------- DYING
-	for index in get_slide_collision_count():
-		var collision := get_slide_collision(index)
-		var body := collision.get_collider()
-		if body.name == "Spike":
-			appearing_timer = 0
-			sprite_2d.animation = "dying"
-			position.x = 440
+	elif dying:
+		spawning_timer += 1
+		if spawning_timer > DISAPPEARING_TIME:
+			position.x = 500
 			position.y = 185
-
+			dying = false
+			appearing = true
+			sprite_2d.animation = "Appearing"
+			spawning_timer = 0
+		
+	#----------------------------------------------------------------------------------------------- DYING
+	if not dying and not appearing:
+		for index in get_slide_collision_count():
+			var collision := get_slide_collision(index)
+			var body := collision.get_collider()
+			if body.name == "Spike":
+				dying = true
+				sprite_2d.animation = "Dying"
+				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1
 	if Time.get_unix_time_from_system() >= next_update:
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
+
+func _draw():
+	draw_rect(Rect2(collision_1.position[0]-17.5, collision_1.position[1]-36, 35.0, 72.0), Color(255, 0, 0), false, 3)
+	draw_rect(Rect2(collision_2.position[0]-28, collision_2.position[1]-32.5, 56.0, 65.0), Color(0, 0, 255), false, 2)

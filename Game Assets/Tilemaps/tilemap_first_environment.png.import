@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnw3el3rej8ag"
-path="res://.godot/imported/Bananas.png-79f7312b3fe1b6cf2a7ce0dafea2fc50.ctex"
+uid="uid://dxciotfxlr7st"
+path="res://.godot/imported/tilemap_first_environment.png-6bd62d1526ff45213aedef61f554f45f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Temp Game Assets/Items/Fruits/Bananas.png"
-dest_files=["res://.godot/imported/Bananas.png-79f7312b3fe1b6cf2a7ce0dafea2fc50.ctex"]
+source_file="res://Game Assets/Tilemaps/tilemap_first_environment.png"
+dest_files=["res://.godot/imported/tilemap_first_environment.png-6bd62d1526ff45213aedef61f554f45f.ctex"]
 
 [params]
 

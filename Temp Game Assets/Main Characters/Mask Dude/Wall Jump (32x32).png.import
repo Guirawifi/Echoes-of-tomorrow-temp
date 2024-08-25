@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://canj3qf2d286o"
-path="res://.godot/imported/Wall Jump (32x32).png-a24a256804647c58d24cccfd0092d37b.ctex"
+path="res://.godot/imported/Wall Jump (32x32).png-b20a7f4880b32564adab9b3b3dd08ef9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game Assets/Main Characters/Mask Dude/Wall Jump (32x32).png"
-dest_files=["res://.godot/imported/Wall Jump (32x32).png-a24a256804647c58d24cccfd0092d37b.ctex"]
+source_file="res://Temp Game Assets/Main Characters/Mask Dude/Wall Jump (32x32).png"
+dest_files=["res://.godot/imported/Wall Jump (32x32).png-b20a7f4880b32564adab9b3b3dd08ef9.ctex"]
 
 [params]
 

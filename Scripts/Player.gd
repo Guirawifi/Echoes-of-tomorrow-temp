@@ -27,9 +27,10 @@ var frame_count = 0
 
 func _ready():
 	#--------------------------------------------------------------------------------------- DISCORD RICH PRESENCE
-	DiscordRPC.details = "In the game"
-	DiscordRPC.state = "So many bugs ;-;"
-	DiscordRPC.refresh()
+#	DiscordRPC.details = "In the game"
+#	DiscordRPC.state = "So many bugs ;-;"
+#	DiscordRPC.refresh()
+	return
 
 func _physics_process(delta):
 	#--------------------------------------------------------------------------------------- ANIMATIONS AND SPRITE

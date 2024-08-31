@@ -39,9 +39,10 @@ var next_update = Time.get_unix_time_from_system() + 1
 
 func _ready():
 	#----------------------------------------------------------------------------------------------- DISCORD RICH PRESENCE
-	DiscordRPC.details = "In the game"
-	DiscordRPC.state = "So many bugs ;-;"
-	DiscordRPC.refresh()
+#	DiscordRPC.details = "In the game"
+#	DiscordRPC.state = "So many bugs ;-;"
+#	DiscordRPC.refresh()
+	return
 	
 func _physics_process(delta):
 	if not appearing and not dying:
@@ -116,7 +117,7 @@ func _physics_process(delta):
 			#------------------------------------------------------------------- ANIMATION IN THE AIR
 			sprite_2d.animation = "Jumping"
 			
-			 #-------------------------------------------------------------------------------------- ALL IN AIR NOT DASH
+			#-------------------------------------------------------------------------------------- ALL IN AIR NOT DASH
 			if not dashing:
 				#--------------------------------------------------------------- CONTROL HEIGHT OF JUMP
 				if velocity.y < 0 and Input.is_action_just_released("jump") and jumping:
@@ -153,20 +154,28 @@ func _physics_process(delta):
 		spawning_timer += 1
 		if spawning_timer > DISAPPEARING_TIME:
 			position.x = 500
-			position.y = 185
+			position.y = 170
+			velocity.x = 0
+			velocity.y = 0
 			dying = false
 			appearing = true
 			sprite_2d.animation = "Appearing"
 			spawning_timer = 0
+		else:
+			sprite_2d.animation = "Dying"
 		
 	#----------------------------------------------------------------------------------------------- DYING
-	if not dying and not appearing:
-		for index in get_slide_collision_count():
-			var collision := get_slide_collision(index)
-			var body := collision.get_collider()
-			if body.name == "Spike":
-				dying = true
-				sprite_2d.animation = "Dying"
+#	if (not dying) and (not appearing):
+#		for index in get_slide_collision_count():
+#			var collision := get_slide_collision(index)
+#			var body := collision.get_collider()
+#			if body.name == "Spike":
+#				dying = true
+#				print("Spike")
+#				break
+
+	if Input.is_action_just_pressed("die"):
+		dying = true
 				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1
@@ -174,11 +183,6 @@ func _physics_process(delta):
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
-
-func _draw():
-	draw_rect(Rect2(collision_1.position[0]-17.5, collision_1.position[1]-36, 35.0, 72.0), Color(255, 0, 0), false, 3)
-	draw_rect(Rect2(collision_2.position[0]-28, collision_2.position[1]-32.5, 56.0, 65.0), Color(0, 0, 255), false, 2)
-
 
 func _on_reverse_gravity_body_entered(_body):
 	GRAVITY -= GRAVITY

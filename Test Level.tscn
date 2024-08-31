@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://655l36eqeqs1"]
+[gd_scene load_steps=10 format=3 uid="uid://655l36eqeqs1"]
 
 [ext_resource type="Texture2D" uid="uid://cfu7okwoumqto" path="res://Temp Game Assets/Background/Green.png" id="1_8kcvr"]
 [ext_resource type="Texture2D" uid="uid://d1mc3gckc2l4p" path="res://Temp Game Assets/Terrain/Terrain (16x16).png" id="2_u7ha7"]
 [ext_resource type="PackedScene" uid="uid://6pducreoo5lt" path="res://Object Scene/falling_block.tscn" id="4_hw34b"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="5_7bcdj"]
+[ext_resource type="PackedScene" uid="uid://b872hgwp1q7q8" path="res://Object Scene/Grass.tscn" id="5_566d4"]
 [ext_resource type="PackedScene" uid="uid://c0sinundqosl5" path="res://Object Scene/Test better script.tscn" id="5_oecok"]
 [ext_resource type="PackedScene" uid="uid://d1i4mo118ek2t" path="res://Object Scene/Reverse gravity zone.tscn" id="6_xusqk"]
 
@@ -638,11 +639,35 @@ position = Vector2(914, 263)
 [node name="Spike" parent="Objects" instance=ExtResource("5_7bcdj")]
 position = Vector2(132, 288)
 
+[node name="Reverse gravity" parent="Objects" instance=ExtResource("6_xusqk")]
+position = Vector2(261, 377)
+
 [node name="Player" parent="." instance=ExtResource("5_oecok")]
 position = Vector2(500, 178)
 
-[node name="Reverse gravity" parent="." instance=ExtResource("6_xusqk")]
-position = Vector2(261, 377)
+[node name="Grasses" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="Reverse gravity" to="Player" method="_on_reverse_gravity_body_entered"]
-[connection signal="body_exited" from="Reverse gravity" to="Player" method="_on_reverse_gravity_body_exited"]
+[node name="Grass" parent="Grasses" instance=ExtResource("5_566d4")]
+position = Vector2(84, 229)
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.0
+
+[node name="Grass2" parent="Grasses" instance=ExtResource("5_566d4")]
+position = Vector2(60, 229)
+frame_progress = 0.0
+
+[node name="Grass3" parent="Grasses" instance=ExtResource("5_566d4")]
+position = Vector2(35, 229)
+animation = &"2"
+autoplay = "2"
+frame_progress = 0.0
+
+[node name="Grass4" parent="Grasses" instance=ExtResource("5_566d4")]
+position = Vector2(12, 229)
+animation = &"3"
+autoplay = "3"
+frame_progress = 0.0
+
+[connection signal="body_entered" from="Objects/Reverse gravity" to="Player" method="_on_reverse_gravity_body_entered"]
+[connection signal="body_exited" from="Objects/Reverse gravity" to="Player" method="_on_reverse_gravity_body_exited"]

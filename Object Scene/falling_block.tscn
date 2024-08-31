@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://6pducreoo5lt"]
 
 [ext_resource type="Script" path="res://Scripts/falling_block.gd" id="1_yhibu"]
-[ext_resource type="Texture2D" uid="uid://didrek1wocws5" path="res://Game Assets/Items/Boxes/Box1/Idle.png" id="1_yva38"]
+[ext_resource type="Texture2D" uid="uid://didrek1wocws5" path="res://Temp Game Assets/Items/Boxes/Box1/Idle.png" id="1_yva38"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_54bfq"]
 size = Vector3(50, 50, 1)

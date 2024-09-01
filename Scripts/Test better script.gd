@@ -180,6 +180,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("flip"):
 		GRAVITY = -GRAVITY
+		velocity.y = 0-velocity.y/20
 				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1
@@ -195,8 +196,10 @@ func _on_spike_body_entered(body):
 func _on_gravity_body_entered(body):
 	if body == player:
 		GRAVITY = -GRAVITY
+		velocity.y = 0-velocity.y/20
 
 
 func _on_gravity_body_exited(body):
 	if body == player:
 		GRAVITY = -GRAVITY
+		velocity.y = 0-velocity.y/20

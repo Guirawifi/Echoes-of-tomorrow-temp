@@ -23,6 +23,13 @@ var jumping = false
 @onready var collision_1 = $CollisionShape2D
 @onready var collision_2 = $CollisionShape2D2
 
+@onready var grass = $"../Grasses/Grass"
+@onready var grass_2 = $"../Grasses/Grass2"
+@onready var grass_3 = $"../Grasses/Grass3"
+@onready var grass_4 = $"../Grasses/Grass4"
+
+var grass_list = [grass, grass_2, grass_3, grass_4]
+
 #------------------------------------------------------------------------------- SPRITE DIRECTION
 var sprite_direction = 0
 var direction = 0

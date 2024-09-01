@@ -1,7 +1,6 @@
-[gd_scene load_steps=25 format=3 uid="uid://b872hgwp1q7q8"]
+[gd_scene load_steps=25 format=3 uid="uid://bed6mhdlyeek7"]
 
 [ext_resource type="Texture2D" uid="uid://ta27aekgbrmo" path="res://Game Assets/Tilemaps/grass.png" id="1_1delm"]
-[ext_resource type="Script" path="res://Scripts/Grass.gd" id="2_ytug1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_toeyl"]
 atlas = ExtResource("1_1delm")
@@ -168,6 +167,25 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_5bk8l"]
+script/source = "extends AnimatedSprite2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var number = RandomNumberGenerator.new().randi_range(1, 3)
+	if number == 1:
+		play(\"1\")
+	if number == 2:
+		play(\"2\")
+	if number == 3:
+		play(\"3\")
+	frame = RandomNumberGenerator.new().randi_range(0, 6)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+"
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D"]
 texture_filter = 1
 scale = Vector2(3, 3)
@@ -175,4 +193,4 @@ sprite_frames = SubResource("SpriteFrames_4ph6w")
 animation = &"1"
 autoplay = "1"
 frame_progress = 0.130809
-script = ExtResource("2_ytug1")
+script = SubResource("GDScript_5bk8l")

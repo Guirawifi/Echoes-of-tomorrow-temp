@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://6pducreoo5lt"]
+
+[ext_resource type="Script" path="res://Scripts/falling_block.gd" id="1_yhibu"]
+[ext_resource type="Texture2D" uid="uid://didrek1wocws5" path="res://Temp Game Assets/Items/Boxes/Box1/Idle.png" id="1_yva38"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_54bfq"]
+size = Vector3(50, 50, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fex3k"]
+size = Vector2(42, 46)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlede"]
+texture = ExtResource("1_yva38")
+texture_margin_left = 4.0
+texture_margin_top = 2.0
+texture_margin_right = 4.0
+texture_margin_bottom = 2.0
+
+[node name="AnimatableBody2D" type="AnimatableBody2D"]
+script = ExtResource("1_yhibu")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(9.53674e-07, -6.55651e-07)
+scale = Vector2(0.84, 0.92)
+mesh = SubResource("BoxMesh_54bfq")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fex3k")
+
+[node name="Texture" type="Panel" parent="."]
+texture_filter = 1
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_rlede")
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerDetection" type="RayCast2D" parent="."]
+position = Vector2(-20, -24)
+target_position = Vector2(40, -3)
+
+[node name="PlayerDetection2" type="RayCast2D" parent="."]
+position = Vector2(20, -24)
+target_position = Vector2(-40, -3)

@@ -22,13 +22,7 @@ var jumping = false
 @onready var character_body_2d = $"."
 @onready var collision_1 = $CollisionShape2D
 @onready var collision_2 = $CollisionShape2D2
-
-@onready var grass = $"../Grasses/Grass"
-@onready var grass_2 = $"../Grasses/Grass2"
-@onready var grass_3 = $"../Grasses/Grass3"
-@onready var grass_4 = $"../Grasses/Grass4"
-
-var grass_list = [grass, grass_2, grass_3, grass_4]
+@onready var player = $"."
 
 #------------------------------------------------------------------------------- SPRITE DIRECTION
 var sprite_direction = 0
@@ -54,7 +48,7 @@ func _ready():
 func _physics_process(delta):
 	if not appearing and not dying:
 		direction = Input.get_axis("left", "right")
-		if is_on_floor(): #------------------------------------------------------------------------- ALL ON FLOOR
+		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
 			#------------------------------------------------------------------- ANIMATIONS + SPRITE
@@ -183,6 +177,9 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("die"):
 		dying = true
+		
+	if Input.is_action_pressed("flip"):
+		GRAVITY = -GRAVITY
 				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1
@@ -191,11 +188,15 @@ func _physics_process(delta):
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
 
-func _on_reverse_gravity_body_entered(_body):
-	GRAVITY -= GRAVITY
-	print("entered")
+func _on_spike_body_entered(body):
+	if body == player:
+		dying = true
+
+func _on_gravity_body_entered(body):
+	if body == player:
+		GRAVITY = -GRAVITY
 
 
-func _on_reverse_gravity_body_exited(_body):
-	GRAVITY -= GRAVITY
-	print('exited')
+func _on_gravity_body_exited(body):
+	if body == player:
+		GRAVITY = -GRAVITY

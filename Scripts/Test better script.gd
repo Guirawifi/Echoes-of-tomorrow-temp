@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 #------------------------------------------------------------------------------- CONST
 const SPEED = 300.0
-const JUMP_VELOCITY = -500.0
+const JUMP_VELOCITY = -550.0
 const WALL_JUMP_VELOCITY = -700.0
 var GRAVITY = 980
 const APPEARING_TIME = 15
@@ -188,10 +188,6 @@ func _physics_process(delta):
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
-
-func _on_spike_body_entered(body):
-	if body == player:
-		dying = true
 
 func _on_gravity_body_entered(body):
 	if body == player:

@@ -328,3 +328,10 @@ debug_color = Color(0.839216, 0, 0.137255, 0.431373)
 position = Vector2(0, 15)
 shape = SubResource("RectangleShape2D_wio17")
 debug_color = Color(0.32549, 0.619608, 0.184314, 0.419608)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 2232
+limit_bottom = 646
+drag_horizontal_enabled = true

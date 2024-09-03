@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 #------------------------------------------------------------------------------- CONST
 const SPEED = 300.0
-const JUMP_VELOCITY = -550.0
-const WALL_JUMP_VELOCITY = -700.0
+var JUMP_VELOCITY = -550.0
+var WALL_JUMP_VELOCITY = -500.0
 var GRAVITY = 980
 const APPEARING_TIME = 15
 const DISAPPEARING_TIME = 15
@@ -49,7 +49,7 @@ func _ready():
 func _physics_process(delta):
 	if not appearing and not dying:
 		direction = Input.get_axis("left", "right")
-		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1: #------------------------------------------------------------------------- ALL ON FLOOR
+		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
 			#------------------------------------------------------------------- ANIMATIONS + SPRITE
@@ -61,15 +61,25 @@ func _physics_process(delta):
 			sprite_direction = 0
 			if velocity.x < 0: sprite_direction = 1
 			elif velocity.x > 0: sprite_direction = -1
-			
-			if sprite_direction == 1:
-				sprite_2d.flip_h = true  
-			elif sprite_direction == -1:
-				sprite_2d.flip_h = false
+				
+			if GRAVITY/abs(GRAVITY) == -1:
+				JUMP_VELOCITY = 550.0
+				WALL_JUMP_VELOCITY = 500.0
+				if sprite_direction == 1:
+					sprite_2d.flip_h = false
+				elif sprite_direction == -1:
+					sprite_2d.flip_h = true
+			else:
+				JUMP_VELOCITY = -550.0
+				WALL_JUMP_VELOCITY = -500.0
+				if sprite_direction == 1:
+					sprite_2d.flip_h = true
+				elif sprite_direction == -1:
+					sprite_2d.flip_h = false
 				
 			#------------------------------------------------------------------- JUMP
 			if Input.is_action_just_pressed("jump"):
-				if is_on_floor():
+				if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1:
 					velocity.y += JUMP_VELOCITY
 					jumping = true
 					
@@ -197,12 +207,14 @@ func _physics_process(delta):
 func _on_gravity_body_entered(body):
 	if body == player:
 		GRAVITY = -980
-		sprite_2d.flip_v = true
+		#sprite_2d.flip_v = true
 		velocity.y = 0-velocity.y/20
+		sprite_2d.rotate(deg_to_rad(180))
 
 
 func _on_gravity_body_exited(body):
 	if body == player:
 		GRAVITY = 980
-		sprite_2d.flip_v = false
+		#sprite_2d.flip_v = false
+		sprite_2d.rotate(deg_to_rad(180))
 		#velocity.y = 0-velocity.y/20

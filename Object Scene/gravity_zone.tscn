@@ -54,6 +54,7 @@ size = Vector2(96, 96)
 [node name="emitter" type="GPUParticles2D" parent="."]
 position = Vector2(48, 48)
 scale = Vector2(0.48, 0.48)
+amount = 32
 process_material = SubResource("ParticleProcessMaterial_x8nhi")
 texture = SubResource("NoiseTexture2D_a707s")
 speed_scale = 1.3

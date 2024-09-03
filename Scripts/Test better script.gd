@@ -196,13 +196,13 @@ func _physics_process(delta):
 
 func _on_gravity_body_entered(body):
 	if body == player:
-		GRAVITY = -GRAVITY
+		GRAVITY = -980
 		sprite_2d.flip_v = true
 		velocity.y = 0-velocity.y/20
 
 
 func _on_gravity_body_exited(body):
 	if body == player:
-		GRAVITY = -GRAVITY
+		GRAVITY = 980
 		sprite_2d.flip_v = false
 		#velocity.y = 0-velocity.y/20

@@ -33,6 +33,7 @@ var coyote_timer = 0
 var jump_buffering_timer = 0
 var dash_timer = 0
 var spawning_timer = 0
+var was_in_reverse_gravity = 0
 
 #------------------------------------------------------------------------------- FPS COUNTER
 var frame_count = 0
@@ -188,9 +189,13 @@ func _physics_process(delta):
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
+		
+	if GRAVITY/abs(GRAVITY) == -1:
+		was_in_reverse_gravity = Time.get_unix_time_from_system()
+	
 
 func _on_gravity_body_entered(body):
-	if body == player and GRAVITY/abs(GRAVITY) == 1:
+	if body == player:
 		GRAVITY = -GRAVITY
 		sprite_2d.flip_v = true
 		velocity.y = 0-velocity.y/20

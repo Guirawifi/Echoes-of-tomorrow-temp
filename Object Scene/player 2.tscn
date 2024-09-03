@@ -306,18 +306,20 @@ radius = 35.0
 height = 72.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wio17"]
-size = Vector2(56, 65)
+size = Vector2(56, 58)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_w4lps")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, 19)
 scale = Vector2(3.095, 3)
 sprite_frames = SubResource("SpriteFrames_5s3cq")
 animation = &"Appearing"
 autoplay = "Appearing"
-frame_progress = 0.286727
+centered = false
+offset = Vector2(-17, -22)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12)
@@ -325,7 +327,7 @@ shape = SubResource("CapsuleShape2D_sp10s")
 debug_color = Color(0.839216, 0, 0.137255, 0.431373)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 15)
+position = Vector2(0, 19)
 shape = SubResource("RectangleShape2D_wio17")
 debug_color = Color(0.32549, 0.619608, 0.184314, 0.419608)
 

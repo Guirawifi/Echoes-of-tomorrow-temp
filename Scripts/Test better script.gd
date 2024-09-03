@@ -49,6 +49,26 @@ func _ready():
 func _physics_process(delta):
 	if not appearing and not dying:
 		direction = Input.get_axis("left", "right")
+		
+		sprite_direction = 0
+		if velocity.x < 0: sprite_direction = 1
+		elif velocity.x > 0: sprite_direction = -1
+			
+		if GRAVITY/abs(GRAVITY) == -1:
+			JUMP_VELOCITY = 550.0
+			WALL_JUMP_VELOCITY = 500.0
+			if sprite_direction == 1:
+				sprite_2d.flip_h = false
+			elif sprite_direction == -1:
+				sprite_2d.flip_h = true
+		else:
+			JUMP_VELOCITY = -550.0
+			WALL_JUMP_VELOCITY = -500.0
+			if sprite_direction == 1:
+				sprite_2d.flip_h = true
+			elif sprite_direction == -1:
+				sprite_2d.flip_h = false
+		
 		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
@@ -57,25 +77,6 @@ func _physics_process(delta):
 				sprite_2d.animation = "Running"
 			else:
 				sprite_2d.animation = "Idle"
-			
-			sprite_direction = 0
-			if velocity.x < 0: sprite_direction = 1
-			elif velocity.x > 0: sprite_direction = -1
-				
-			if GRAVITY/abs(GRAVITY) == -1:
-				JUMP_VELOCITY = 550.0
-				WALL_JUMP_VELOCITY = 500.0
-				if sprite_direction == 1:
-					sprite_2d.flip_h = false
-				elif sprite_direction == -1:
-					sprite_2d.flip_h = true
-			else:
-				JUMP_VELOCITY = -550.0
-				WALL_JUMP_VELOCITY = -500.0
-				if sprite_direction == 1:
-					sprite_2d.flip_h = true
-				elif sprite_direction == -1:
-					sprite_2d.flip_h = false
 				
 			#------------------------------------------------------------------- JUMP
 			if Input.is_action_just_pressed("jump"):
@@ -156,11 +157,13 @@ func _physics_process(delta):
 		
 	elif appearing:
 		spawning_timer += 1
+		sprite_2d.offset = Vector2(-48, -48)
 		if spawning_timer > APPEARING_TIME:
 			appearing = false
 			dying = false
 			spawning_timer = 0
 			sprite_2d.animation = "Jumping"
+			sprite_2d.offset = Vector2(-17, -22)
 	
 	elif dying:
 		spawning_timer += 1
@@ -175,6 +178,7 @@ func _physics_process(delta):
 			spawning_timer = 0
 		else:
 			sprite_2d.animation = "Dying"
+			sprite_2d.offset = Vector2(-48, -48)
 		
 	#----------------------------------------------------------------------------------------------- DYING
 #	if (not dying) and (not appearing):
@@ -210,6 +214,7 @@ func _on_gravity_body_entered(body):
 		#sprite_2d.flip_v = true
 		velocity.y = 0-velocity.y/20
 		sprite_2d.rotate(deg_to_rad(180))
+		print(collision_2.disabled)
 
 
 func _on_gravity_body_exited(body):
@@ -217,4 +222,6 @@ func _on_gravity_body_exited(body):
 		GRAVITY = 980
 		#sprite_2d.flip_v = false
 		sprite_2d.rotate(deg_to_rad(180))
+		collision_2.disabled = false
+		print(collision_2.disabled)
 		#velocity.y = 0-velocity.y/20

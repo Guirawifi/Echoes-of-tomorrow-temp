@@ -68,7 +68,6 @@ func _physics_process(delta):
 				sprite_2d.flip_h = true
 			elif sprite_direction == -1:
 				sprite_2d.flip_h = false
-		
 		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
@@ -193,9 +192,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("die"):
 		dying = true
 		
-	if Input.is_action_pressed("flip"):
+	if Input.is_action_just_pressed("flip"):
 		GRAVITY = -GRAVITY
 		velocity.y = 0-velocity.y/20
+		rotate(PI)
 				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1
@@ -212,17 +212,10 @@ func _on_gravity_body_entered(body):
 	if body == player:
 		GRAVITY = -980
 		velocity.y = 0-velocity.y/20
-		#sprite_2d.rotate(deg_to_rad(180))
-		#collision_2.set_deferred("disabled", true)
-		#print(collision_2.disabled)
 		rotate(PI)
 
 
 func _on_gravity_body_exited(body):
 	if body == player:
 		GRAVITY = 980
-		#velocity.y = 0-velocity.y/20
-		#sprite_2d.rotate(deg_to_rad(180))
-		#collision_2.set_deferred("disabled", false)
-		#print(collision_2.disabled)
 		rotate(PI)

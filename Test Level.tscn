@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://ep74vueuosmo" path="res://Game Assets/Tilemaps/tilemap_first_environment.png" id="3_5hydt"]
 [ext_resource type="Texture2D" uid="uid://ta27aekgbrmo" path="res://Game Assets/Tilemaps/grass.png" id="3_iav1w"]
 [ext_resource type="PackedScene" uid="uid://6pducreoo5lt" path="res://Object Scene/falling_block.tscn" id="4_hw34b"]
-[ext_resource type="PackedScene" uid="uid://c0sinundqosl5" path="res://Object Scene/player 2.tscn" id="5_oecok"]
-[ext_resource type="PackedScene" uid="uid://cgs07f35i1mn8" path="res://Object Scene/gravity_zone.tscn" id="5_tgh2o"]
+[ext_resource type="PackedScene" uid="uid://c54ah3cc8n5um" path="res://Object Scene/player 2.tscn" id="5_oecok"]
+[ext_resource type="PackedScene" uid="uid://jxvv10l11hy8" path="res://Object Scene/gravity_zone.tscn" id="5_tgh2o"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="6_1qku7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sleg"]

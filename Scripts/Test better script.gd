@@ -211,17 +211,18 @@ func _physics_process(delta):
 func _on_gravity_body_entered(body):
 	if body == player:
 		GRAVITY = -980
-		#sprite_2d.flip_v = true
 		velocity.y = 0-velocity.y/20
-		sprite_2d.rotate(deg_to_rad(180))
-		print(collision_2.disabled)
+		#sprite_2d.rotate(deg_to_rad(180))
+		#collision_2.set_deferred("disabled", true)
+		#print(collision_2.disabled)
+		rotate(PI)
 
 
 func _on_gravity_body_exited(body):
 	if body == player:
 		GRAVITY = 980
-		#sprite_2d.flip_v = false
-		sprite_2d.rotate(deg_to_rad(180))
-		collision_2.disabled = false
-		print(collision_2.disabled)
 		#velocity.y = 0-velocity.y/20
+		#sprite_2d.rotate(deg_to_rad(180))
+		#collision_2.set_deferred("disabled", false)
+		#print(collision_2.disabled)
+		rotate(PI)

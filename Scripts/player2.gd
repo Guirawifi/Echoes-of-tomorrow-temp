@@ -163,6 +163,8 @@ func _physics_process(delta):
 			print(dash_direction)
 			
 			velocity.y = DASH_VELOCITY * -dash_direction.y
+			
+			can_dash = false
 		
 		move_and_slide()
 		

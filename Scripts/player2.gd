@@ -7,6 +7,7 @@ var WALL_JUMP_VELOCITY = -500.0
 var GRAVITY = 980
 const APPEARING_TIME = 15
 const DISAPPEARING_TIME = 15
+const DASH_VELOCITY = 980
 
 #------------------------------------------------------------------------------- STATES OF PLAYER
 var appearing = true
@@ -154,6 +155,14 @@ func _physics_process(delta):
 				#--------------------------------------------------------------- MOVING
 				if direction:
 					velocity.x += (direction/abs(direction) * SPEED - velocity.x)/20
+		
+		#----------------------------------------------------------------------- DASH
+		if Input.is_action_just_pressed("dash"):
+			var dash_direction = Vector2(direction, Input.get_axis("down", "up"))
+			dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
+			print(dash_direction)
+			
+			velocity.y = DASH_VELOCITY * -dash_direction.y
 		
 		move_and_slide()
 		

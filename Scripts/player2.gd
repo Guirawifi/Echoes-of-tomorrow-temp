@@ -14,6 +14,7 @@ var dying = false
 var was_on_floor = false
 var dashing = false
 var can_dash = false
+var can_coyote = false
 var jumping = false
 
 #------------------------------------------------------------------------------- OBJECTS IN SCENE
@@ -71,6 +72,8 @@ func _physics_process(delta):
 		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
+			can_coyote = true
+			
 			#------------------------------------------------------------------- ANIMATIONS + SPRITE
 			if (velocity.x > 1 || velocity.x < -1):
 				sprite_2d.animation = "Running"
@@ -80,12 +83,6 @@ func _physics_process(delta):
 			#------------------------------------------------------------------- JUMP
 			if Input.is_action_just_pressed("jump"):
 				if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1:
-					velocity.y += JUMP_VELOCITY
-					jumping = true
-					
-				#----------------------------------------------------------------------- COYOTE JUMP
-				if Time.get_unix_time_from_system() <= coyote_timer:
-					coyote_timer = 0
 					velocity.y += JUMP_VELOCITY
 					jumping = true
 					
@@ -117,6 +114,12 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("jump"):
 				jump_buffering_timer = Time.get_unix_time_from_system() + 0.1
 				
+				#----------------------------------------------------------------------- COYOTE JUMP
+				if Time.get_unix_time_from_system() <= coyote_timer and can_coyote:
+					coyote_timer = 0
+					velocity.y += JUMP_VELOCITY
+					jumping = true
+				
 				#--------------------------------------------------------------- WALL JUMP
 				if is_on_wall():
 					velocity.x = get_wall_normal()[0]*-JUMP_VELOCITY/1.5
@@ -124,7 +127,6 @@ func _physics_process(delta):
 						velocity.y += WALL_JUMP_VELOCITY
 					else:
 						velocity.y = WALL_JUMP_VELOCITY
-					jumping = false
 				
 			#------------------------------------------------------------------- ANIMATION IN THE AIR
 			sprite_2d.animation = "Jumping"
@@ -135,11 +137,12 @@ func _physics_process(delta):
 				if velocity.y < 0 and Input.is_action_just_released("jump") and jumping:
 					velocity.y = 0
 					jumping = false
+					can_coyote = false
 				
 				#--------------------------------------------------------------- COYOTE SET TIMER
 				if was_on_floor:
 					was_on_floor = false
-					coyote_timer = Time.get_unix_time_from_system() + 0.1
+					coyote_timer = Time.get_unix_time_from_system() + 0.15
 					
 				#--------------------------------------------------------------- APPLY GRAVITY
 				if velocity.y < 0:
@@ -206,16 +209,3 @@ func _physics_process(delta):
 		
 	if GRAVITY/abs(GRAVITY) == -1:
 		was_in_reverse_gravity = Time.get_unix_time_from_system()
-	
-
-func _on_gravity_body_entered(body):
-	if body == player:
-		GRAVITY = -980
-		velocity.y = 0-velocity.y/20
-		rotate(PI)
-
-
-func _on_gravity_body_exited(body):
-	if body == player:
-		GRAVITY = 980
-		rotate(PI)

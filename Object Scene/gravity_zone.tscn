@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://jxvv10l11hy8"]
+[gd_scene load_steps=12 format=3 uid="uid://jxvv10l11hy8"]
+
+[ext_resource type="Script" path="res://Scripts/gravity_zone.gd" id="1_fmles"]
 
 [sub_resource type="Curve" id="Curve_oavpa"]
 min_value = -1.0
@@ -50,6 +52,7 @@ size = Vector2(96, 96)
 [sub_resource type="CanvasTexture" id="CanvasTexture_ka5xs"]
 
 [node name="GRAVITY" type="Area2D"]
+script = ExtResource("1_fmles")
 
 [node name="emitter" type="GPUParticles2D" parent="."]
 position = Vector2(48, 48)
@@ -72,3 +75,6 @@ scale = Vector2(96, 96)
 texture = SubResource("CanvasTexture_ka5xs")
 region_rect = Rect2(10, 10, 500, 500)
 region_filter_clip_enabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

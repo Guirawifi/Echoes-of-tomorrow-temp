@@ -157,7 +157,7 @@ func _physics_process(delta):
 					velocity.x += (direction/abs(direction) * SPEED - velocity.x)/20
 		
 		#----------------------------------------------------------------------- DASH
-		if Input.is_action_just_pressed("dash"):
+		if Input.is_action_just_pressed("dash") and can_dash:
 			var dash_direction = Vector2(direction, Input.get_axis("down", "up"))
 			dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
 			print(dash_direction)
@@ -217,6 +217,3 @@ func _physics_process(delta):
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
-		
-	if GRAVITY/abs(GRAVITY) == -1:
-		was_in_reverse_gravity = Time.get_unix_time_from_system()

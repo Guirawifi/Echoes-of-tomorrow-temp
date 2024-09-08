@@ -8,6 +8,7 @@ var GRAVITY = 980
 const APPEARING_TIME = 15
 const DISAPPEARING_TIME = 15
 const DASH_VELOCITY = 980
+const DASH_TIME = 0.15
 
 #------------------------------------------------------------------------------- STATES OF PLAYER
 var appearing = true
@@ -70,6 +71,7 @@ func _physics_process(delta):
 				sprite_2d.flip_h = true
 			elif sprite_direction == -1:
 				sprite_2d.flip_h = false
+				
 		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
 			jumping = false
@@ -158,25 +160,33 @@ func _physics_process(delta):
 		
 		#----------------------------------------------------------------------- DASH
 		if Input.is_action_just_pressed("dash") and can_dash:
-			var dash_direction = Vector2(direction, Input.get_axis("down", "up"))
+			var dash_direction = Vector2(direction, Input.get_axis("up", "down"))
 			dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
-			print(dash_direction)
 			
-			velocity.y = DASH_VELOCITY * -dash_direction.y
+			velocity.y = DASH_VELOCITY * dash_direction.y
+			velocity.x = DASH_VELOCITY * dash_direction.x
 			
+			dash_timer = Time.get_unix_time_from_system() + DASH_TIME
+			
+			dashing = true
 			can_dash = false
+			
+		if dash_timer != 0 and Time.get_unix_time_from_system() >= dash_timer:
+			dashing = false
+			velocity.y /= 2
+			dash_timer = 0
 		
 		move_and_slide()
 		
 	elif appearing:
 		spawning_timer += 1
-		sprite_2d.offset = Vector2(-48, -48)
+		sprite_2d.offset.y = 5
 		if spawning_timer > APPEARING_TIME:
 			appearing = false
 			dying = false
 			spawning_timer = 0
 			sprite_2d.animation = "Jumping"
-			sprite_2d.offset = Vector2(-17, -22)
+			sprite_2d.offset.y = 4.6
 	
 	elif dying:
 		spawning_timer += 1
@@ -191,7 +201,7 @@ func _physics_process(delta):
 			spawning_timer = 0
 		else:
 			sprite_2d.animation = "Dying"
-			sprite_2d.offset = Vector2(-48, -48)
+			sprite_2d.offset.y =  5
 		
 	#----------------------------------------------------------------------------------------------- DYING
 #	if (not dying) and (not appearing):

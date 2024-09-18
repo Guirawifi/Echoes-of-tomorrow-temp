@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://655l36eqeqs1"]
+[gd_scene load_steps=18 format=3 uid="uid://655l36eqeqs1"]
 
 [ext_resource type="Texture2D" uid="uid://cfu7okwoumqto" path="res://Temp Game Assets/Background/Green.png" id="1_8kcvr"]
 [ext_resource type="Texture2D" uid="uid://d1mc3gckc2l4p" path="res://Temp Game Assets/Terrain/Terrain (16x16).png" id="2_u7ha7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c54ah3cc8n5um" path="res://Object Scene/player2.tscn" id="5_oecok"]
 [ext_resource type="PackedScene" uid="uid://jxvv10l11hy8" path="res://Object Scene/gravity_zone.tscn" id="5_tgh2o"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="6_1qku7"]
+[ext_resource type="PackedScene" uid="uid://cevdxbyx8cnxt" path="res://Object Scene/bouncer.tscn" id="9_ket0d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sleg"]
 texture = ExtResource("2_u7ha7")
@@ -921,21 +922,6 @@ stretch_mode = 1
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="AnimatableBody2D" parent="Objects" instance=ExtResource("4_hw34b")]
-position = Vector2(742, 263)
-
-[node name="AnimatableBody2D2" parent="Objects" instance=ExtResource("4_hw34b")]
-position = Vector2(785, 263)
-
-[node name="AnimatableBody2D3" parent="Objects" instance=ExtResource("4_hw34b")]
-position = Vector2(828, 263)
-
-[node name="AnimatableBody2D4" parent="Objects" instance=ExtResource("4_hw34b")]
-position = Vector2(871, 263)
-
-[node name="AnimatableBody2D5" parent="Objects" instance=ExtResource("4_hw34b")]
-position = Vector2(914, 263)
-
 [node name="SPIKES" type="Node2D" parent="Objects"]
 
 [node name="spike1" parent="Objects/SPIKES" instance=ExtResource("6_1qku7")]
@@ -955,6 +941,23 @@ position = Vector2(216, 616)
 [node name="gravity1" parent="Objects/GRAVITY" instance=ExtResource("5_tgh2o")]
 position = Vector2(1840, 0)
 scale = Vector2(2.64226, 6.53853)
+
+[node name="FALLING THINGS" type="Node2D" parent="Objects"]
+
+[node name="AnimatableBody2D" parent="Objects/FALLING THINGS" instance=ExtResource("4_hw34b")]
+position = Vector2(742, 263)
+
+[node name="AnimatableBody2D2" parent="Objects/FALLING THINGS" instance=ExtResource("4_hw34b")]
+position = Vector2(785, 263)
+
+[node name="AnimatableBody2D3" parent="Objects/FALLING THINGS" instance=ExtResource("4_hw34b")]
+position = Vector2(828, 263)
+
+[node name="AnimatableBody2D4" parent="Objects/FALLING THINGS" instance=ExtResource("4_hw34b")]
+position = Vector2(871, 263)
+
+[node name="AnimatableBody2D5" parent="Objects/FALLING THINGS" instance=ExtResource("4_hw34b")]
+position = Vector2(914, 263)
 
 [node name="Player" parent="." instance=ExtResource("5_oecok")]
 position = Vector2(1704, 544)
@@ -1000,6 +1003,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "FPS:"
+
+[node name="BOUNCER" parent="." instance=ExtResource("9_ket0d")]
+position = Vector2(1592, 576)
+scale = Vector2(8.04673, 5.95207)
 
 [connection signal="body_entered" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_entered"]
 [connection signal="body_exited" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_exited"]

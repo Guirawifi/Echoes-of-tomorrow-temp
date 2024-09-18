@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://cevdxbyx8cnxt"]
+
+[ext_resource type="Texture2D" uid="uid://50xmlhyab3wx" path="res://Game Assets/Tilemaps/bouncer.png" id="1_atyoc"]
+[ext_resource type="Script" path="res://Scripts/bouncer.gd" id="1_d4nfd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cy7be"]
+size = Vector2(8, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gmsj"]
+atlas = ExtResource("1_atyoc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm026"]
+atlas = ExtResource("1_atyoc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jy0k"]
+atlas = ExtResource("1_atyoc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idvn0"]
+atlas = ExtResource("1_atyoc")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cipl"]
+atlas = ExtResource("1_atyoc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dad2d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gmsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm026")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jy0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idvn0")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cipl")
+}],
+"loop": true,
+"name": &"Still",
+"speed": 5.0
+}]
+
+[node name="BOUNCER" type="Area2D"]
+script = ExtResource("1_d4nfd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 6)
+shape = SubResource("RectangleShape2D_cy7be")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, 4)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_dad2d")
+animation = &"Jump"
+autoplay = "Still"
+frame = 3
+frame_progress = 0.00483124
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]

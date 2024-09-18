@@ -21,7 +21,7 @@ var jumping = false
 
 #------------------------------------------------------------------------------- OBJECTS IN SCENE
 @onready var sprite_2d = $Sprite2D
-@onready var label = $"../Label"
+@onready var label = $Camera2D/Label
 @onready var character_body_2d = $"."
 @onready var collision_1 = $CollisionShape2D
 @onready var collision_2 = $CollisionShape2D2

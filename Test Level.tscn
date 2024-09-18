@@ -919,15 +919,6 @@ grow_vertical = 2
 texture = ExtResource("1_8kcvr")
 stretch_mode = 1
 
-[node name="Label" type="Label" parent="."]
-offset_top = 64.0
-offset_right = 91.0
-offset_bottom = 100.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-text = "FPS:"
-
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="AnimatableBody2D" parent="Objects" instance=ExtResource("4_hw34b")]
@@ -1000,6 +991,15 @@ layer_0/tile_data = PackedInt32Array(1179688, 458753, 0, 1179690, 458753, 0, 117
 
 [node name="Pointer" type="Node2D" parent="."]
 position = Vector2(2328, 720)
+
+[node name="Label" type="Label" parent="."]
+offset_top = 49.0
+offset_right = 91.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "FPS:"
 
 [connection signal="body_entered" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_entered"]
 [connection signal="body_exited" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_exited"]

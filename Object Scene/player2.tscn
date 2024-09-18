@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c54ah3cc8n5um"]
+[gd_scene load_steps=28 format=3 uid="uid://c54ah3cc8n5um"]
 
 [ext_resource type="Script" path="res://Scripts/player2.gd" id="1_pbfil"]
 [ext_resource type="Texture2D" uid="uid://t5sqlknswf7t" path="res://Temp Game Assets/Main Characters/Appearing (96x96).png" id="2_8w4y2"]
@@ -61,9 +61,21 @@ region = Rect2(480, 0, 96, 96)
 atlas = ExtResource("3_inoc7")
 region = Rect2(576, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujn8j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_osvls"]
 atlas = ExtResource("7_3w1wp")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2tw3"]
+atlas = ExtResource("7_3w1wp")
+region = Rect2(16, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xseaf"]
+atlas = ExtResource("7_3w1wp")
+region = Rect2(32, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tkil"]
+atlas = ExtResource("7_3w1wp")
+region = Rect2(48, 0, 16, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j6peb"]
 atlas = ExtResource("7_3w1wp")
@@ -129,7 +141,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ujn8j")
+"texture": SubResource("AtlasTexture_osvls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2tw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xseaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tkil")
 }],
 "loop": true,
 "name": &"Idle",
@@ -157,7 +178,7 @@ radius = 20.0
 height = 70.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wio17"]
-size = Vector2(40, 60.5)
+size = Vector2(40, 62.25)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(0, -20)
@@ -169,6 +190,7 @@ scale = Vector2(4, 4.031)
 sprite_frames = SubResource("SpriteFrames_5s3cq")
 animation = &"Idle"
 autoplay = "Appearing"
+frame_progress = 0.906854
 offset = Vector2(0, 4.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -179,7 +201,7 @@ disabled = true
 debug_color = Color(0.839216, 0, 0.137255, 0.431373)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 20)
+position = Vector2(0, 19.125)
 shape = SubResource("RectangleShape2D_wio17")
 debug_color = Color(0.32549, 0.619608, 0.184314, 0.419608)
 

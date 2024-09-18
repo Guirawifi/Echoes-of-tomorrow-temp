@@ -21,7 +21,7 @@ var jumping = false
 
 #------------------------------------------------------------------------------- OBJECTS IN SCENE
 @onready var sprite_2d = $Sprite2D
-@onready var label = $Camera2D/Label
+@onready var label = $"../Label"
 @onready var character_body_2d = $"."
 @onready var collision_1 = $CollisionShape2D
 @onready var collision_2 = $CollisionShape2D2
@@ -57,20 +57,12 @@ func _physics_process(delta):
 		if velocity.x < 0: sprite_direction = 1
 		elif velocity.x > 0: sprite_direction = -1
 			
-		if GRAVITY/abs(GRAVITY) == -1:
-			JUMP_VELOCITY = 550.0
-			WALL_JUMP_VELOCITY = 500.0
-			if sprite_direction == 1:
-				sprite_2d.flip_h = false
-			elif sprite_direction == -1:
-				sprite_2d.flip_h = true
-		else:
-			JUMP_VELOCITY = -550.0
-			WALL_JUMP_VELOCITY = -500.0
-			if sprite_direction == 1:
-				sprite_2d.flip_h = true
-			elif sprite_direction == -1:
-				sprite_2d.flip_h = false
+		JUMP_VELOCITY = -550.0 * GRAVITY/abs(GRAVITY)
+		WALL_JUMP_VELOCITY = 500.0
+		if sprite_direction == 1:
+			sprite_2d.flip_h = true
+		elif sprite_direction == -1:
+			sprite_2d.flip_h = false
 				
 		if is_on_floor() and GRAVITY/abs(GRAVITY) == 1 or is_on_ceiling() and GRAVITY/abs(GRAVITY) == -1: #------------------------------------------------------------------------- ALL ON FLOOR
 			was_on_floor = true
@@ -219,7 +211,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("flip"):
 		GRAVITY = -GRAVITY
 		velocity.y = 0-velocity.y/20
-		rotate(PI)
+		sprite_2d.flip_v = not sprite_2d.flip_v
 				
 #--------------------------------------------------------------------------------------- FPS COUNTER
 	frame_count += 1

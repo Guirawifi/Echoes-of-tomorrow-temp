@@ -15,9 +15,9 @@ func _on_body_entered(body):
 	if body == player:
 		player.GRAVITY = -980
 		player.velocity.y = 0-player.velocity.y/20
-		player.rotate(PI)
+		player.sprite_2d.flip_v = true
 
 func _on_body_exited(body):
 	if body == player:
 		player.GRAVITY = 980
-		player.rotate(PI)
+		player.sprite_2d.flip_v = false

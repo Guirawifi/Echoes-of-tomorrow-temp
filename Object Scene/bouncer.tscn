@@ -29,7 +29,7 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="SpriteFrames" id="SpriteFrames_dad2d"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.01,
 "texture": SubResource("AtlasTexture_6gmsj")
 }, {
 "duration": 1.0,

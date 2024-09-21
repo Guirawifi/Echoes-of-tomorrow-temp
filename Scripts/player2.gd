@@ -52,13 +52,14 @@ func _ready():
 func _physics_process(delta):
 	if not appearing and not dying:
 		direction = Input.get_axis("left", "right")
+		direction = direction/(abs(direction)+0.000000001)
 		
 		sprite_direction = 0
 		if velocity.x < 0: sprite_direction = 1
 		elif velocity.x > 0: sprite_direction = -1
 			
 		JUMP_VELOCITY = -550.0 * GRAVITY/abs(GRAVITY)
-		WALL_JUMP_VELOCITY = 500.0
+		WALL_JUMP_VELOCITY = -500.0 * GRAVITY/abs(GRAVITY)
 		if sprite_direction == 1:
 			sprite_2d.flip_h = true
 		elif sprite_direction == -1:
@@ -96,9 +97,9 @@ func _physics_process(delta):
 				#--------------------------------------------------------------- MOVING AND FRICTION
 				if direction:
 					if (abs(velocity.x) <= SPEED):
-						velocity.x = direction/abs(direction) * SPEED
-					if (velocity.x/abs(velocity.x) != direction/abs(direction)):
-						velocity.x += ((direction/abs(direction) * SPEED) - velocity.x)/10
+						velocity.x = direction * SPEED
+					if (velocity.x/abs(velocity.x) != direction):
+						velocity.x += ((direction * SPEED) - velocity.x)/10
 				else:
 					velocity.x = move_toward(velocity.x, 0, 30)
 			else:
@@ -118,6 +119,8 @@ func _physics_process(delta):
 				#--------------------------------------------------------------- WALL JUMP
 				if is_on_wall():
 					velocity.x = get_wall_normal()[0]*-JUMP_VELOCITY/1.5
+					if direction != 0: velocity.x = direction*JUMP_VELOCITY/1.5
+					else: velocity.x = (-1 if sprite_2d.flip_h else 1)*JUMP_VELOCITY/1.5
 					if velocity.y < WALL_JUMP_VELOCITY:
 						velocity.y += WALL_JUMP_VELOCITY
 					else:
@@ -148,13 +151,16 @@ func _physics_process(delta):
 				
 				#--------------------------------------------------------------- MOVING
 				if direction:
-					velocity.x += (direction/abs(direction) * SPEED - velocity.x)/20
+					velocity.x += (direction * SPEED - velocity.x)/20
 		
 		#----------------------------------------------------------------------- DASH
 		if Input.is_action_just_pressed("dash") and can_dash:
 			var dash_direction = Vector2(direction, Input.get_axis("up", "down"))
-			dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
-			
+			if dash_direction != Vector2(0, 0):
+				dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
+			else:
+				dash_direction = Vector2(-1 if sprite_2d.flip_h else 1, 0)
+				
 			velocity.y = DASH_VELOCITY * dash_direction.y
 			velocity.x = DASH_VELOCITY * dash_direction.x
 			

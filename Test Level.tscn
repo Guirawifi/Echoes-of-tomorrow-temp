@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c54ah3cc8n5um" path="res://Object Scene/player2.tscn" id="5_oecok"]
 [ext_resource type="PackedScene" uid="uid://jxvv10l11hy8" path="res://Object Scene/gravity_zone.tscn" id="5_tgh2o"]
 [ext_resource type="PackedScene" uid="uid://cf35voujy0q7i" path="res://Object Scene/spike.tscn" id="6_1qku7"]
-[ext_resource type="PackedScene" uid="uid://cevdxbyx8cnxt" path="res://Object Scene/bouncer.tscn" id="9_ket0d"]
+[ext_resource type="PackedScene" path="res://Object Scene/bouncer.tscn" id="9_ket0d"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2sleg"]
 texture = ExtResource("2_u7ha7")
@@ -1006,7 +1006,7 @@ text = "FPS:"
 
 [node name="BOUNCER" parent="." instance=ExtResource("9_ket0d")]
 position = Vector2(1592, 576)
-scale = Vector2(8.04673, 5.95207)
+scale = Vector2(6.68673, 5.95207)
 
 [connection signal="body_entered" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_entered"]
 [connection signal="body_exited" from="Objects/GRAVITY/gravity1" to="Player" method="_on_gravity_body_exited"]

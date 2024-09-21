@@ -30,6 +30,7 @@ var jumping = false
 #------------------------------------------------------------------------------- SPRITE DIRECTION
 var sprite_direction = 0
 var direction = 0
+var dash_direction = Vector2(0, 0)
 
 #------------------------------------------------------------------------------- TIMERS
 var coyote_timer = 0
@@ -155,7 +156,7 @@ func _physics_process(delta):
 		
 		#----------------------------------------------------------------------- DASH
 		if Input.is_action_just_pressed("dash") and can_dash:
-			var dash_direction = Vector2(direction, Input.get_axis("up", "down"))
+			dash_direction = Vector2(direction, Input.get_axis("up", "down"))
 			if dash_direction != Vector2(0, 0):
 				dash_direction = dash_direction/abs(dash_direction+Vector2(0.000000001, 0.000000001))
 			else:
@@ -173,6 +174,9 @@ func _physics_process(delta):
 			dashing = false
 			velocity.y /= 2
 			dash_timer = 0
+		elif dash_timer != 0:
+			velocity.y = DASH_VELOCITY * dash_direction.y
+			velocity.x = DASH_VELOCITY * dash_direction.x
 		
 		move_and_slide()
 		

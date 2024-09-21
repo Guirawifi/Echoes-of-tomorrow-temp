@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var player = $"../../../Player"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +16,8 @@ func _process(_delta):
 func _on_body_entered(body):
 	animated_sprite_2d.play("Jump")
 	body.velocity.y = -800
+	if body == player:
+		player.can_dash = true
 
 
 func _on_animated_sprite_2d_animation_looped():

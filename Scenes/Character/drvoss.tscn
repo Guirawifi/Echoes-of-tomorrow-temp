@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxsf80itkiyw4"]
+
+[ext_resource type="Texture2D" uid="uid://p7eu0xkl2gbn" path="res://Game Assets/Characters/drvoss.png" id="1_ofwjf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ycub"]
+size = Vector2(15, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyqka"]
+atlas = ExtResource("1_ofwjf")
+region = Rect2(0, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2h21"]
+atlas = ExtResource("1_ofwjf")
+region = Rect2(16, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkajx"]
+atlas = ExtResource("1_ofwjf")
+region = Rect2(32, 0, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cemxq"]
+atlas = ExtResource("1_ofwjf")
+region = Rect2(48, 0, 16, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_74hgd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyqka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2h21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkajx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cemxq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="drvoss" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_8ycub")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_74hgd")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.291968

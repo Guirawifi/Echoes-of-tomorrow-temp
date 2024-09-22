@@ -15,7 +15,7 @@ func _process(_delta):
 
 func _on_body_entered(body):
 	animated_sprite_2d.play("Jump")
-	body.velocity.y = -800
+	body.velocity.y = -800 if body.velocity.y >= 0 else body.velocity.y
 	if body == player:
 		player.can_dash = true
 

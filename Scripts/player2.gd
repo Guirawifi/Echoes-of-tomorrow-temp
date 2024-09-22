@@ -45,9 +45,9 @@ var next_update = Time.get_unix_time_from_system() + 1
 
 func _ready():
 	#----------------------------------------------------------------------------------------------- DISCORD RICH PRESENCE
-#	DiscordRPC.details = "In the game"
-#	DiscordRPC.state = "So many bugs ;-;"
-#	DiscordRPC.refresh()
+	DiscordRPC.details = "In the game"
+	DiscordRPC.state = "So many bugs ;-;"
+	DiscordRPC.refresh()
 	return
 	
 func _physics_process(delta):
@@ -174,9 +174,10 @@ func _physics_process(delta):
 			dashing = false
 			velocity.y /= 2
 			dash_timer = 0
+			
 		elif dash_timer != 0:
-			velocity.y = DASH_VELOCITY * dash_direction.y
-			velocity.x = DASH_VELOCITY * dash_direction.x
+			velocity.y = DASH_VELOCITY*dash_direction.y if abs(velocity.y) < abs(DASH_VELOCITY*dash_direction.y) else velocity.y
+			velocity.x = DASH_VELOCITY*dash_direction.x if abs(velocity.x) < abs(DASH_VELOCITY*dash_direction.x) else velocity.x
 		
 		move_and_slide()
 		
@@ -231,4 +232,4 @@ func _physics_process(delta):
 		frame_count = 0
 		
 #--------------------------------------------------------------------------------------------------- DEBUGGING
-	can_dash = true
+	#can_dash = true

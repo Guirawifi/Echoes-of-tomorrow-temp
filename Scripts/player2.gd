@@ -229,3 +229,6 @@ func _physics_process(delta):
 		next_update = Time.get_unix_time_from_system() + 1
 		label.text = "FPS: " + str(int(frame_count))
 		frame_count = 0
+		
+#--------------------------------------------------------------------------------------------------- DEBUGGING
+	can_dash = true
